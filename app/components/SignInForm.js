@@ -130,20 +130,26 @@ class SignInForm extends Component {
     var chckInput = { value: false };
     let err = user && user.error;
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ background: '#63779f' }}>
         <div className="row">
-          <div className="col-md-7 col-lg-7">
+          <div className="col-md-4 col-lg-4">
             <div className="text-left">
-              <img
+              {/* <img
                 src="../assets/main_logo.png"
                 className="login-logo"
                 alt="My logo"
-              />
-              <div className="left-col-pad">
-                <div>
-                  <h3 className="text-left login-text">
+              /> */}
+              <div className="left-col-pad" style={{ paddingRight: '4rem', paddingLeft: '4rem' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <img
+                    src="../assets/main_logo.png"
+                    className="login-logo"
+                    alt="My logo"
+                    style={{ width: '75%' }}
+                  />
+                  {/* <h3 className="text-left login-text">
                     Welcome, Please sign in!
-                  </h3>
+                  </h3> */}
                 </div>
                 {!this.state.isOptView && (
                   <div>
@@ -243,10 +249,10 @@ class SignInForm extends Component {
                       <button
                         onClick={() => (
                           this.resendCount < 3 &&
-                            this.props.resendOTP(
-                              this.state.mobile,
-                              this.resendCount
-                            ),
+                          this.props.resendOTP(
+                            this.state.mobile,
+                            this.resendCount
+                          ),
                           this.resendCount++
                         )}
                         className="btn btn-primary-link"
@@ -274,7 +280,16 @@ class SignInForm extends Component {
               </div>
             </div>
           </div>
-          <div className="col-md-5 col-lg-5 login-section2 left-col-background-hide"></div>
+          <div className="col-md-8 col-lg-8 login-section2 left-col-background-hide">
+            <div>
+              <h1 className="text-left login-text">
+                Welcome, Please sign in!
+              </h1>
+              <h4 className="text-left login-text" style={{ fontColor: '#3c3c3c', fontSize: '25px' }}>
+                A powerful and intuitive digital signage solution.
+              </h4>
+            </div>
+          </div>
         </div>
       </div>
     );

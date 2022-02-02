@@ -2,7 +2,7 @@ body {
   background: #EAEAEA url("../assets/bk.png");
   background-size: 100%;
   background-repeat-y: repeat;
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 iframe body {
@@ -456,6 +456,14 @@ input[type="text"], input[type="password"] {
 
   border: none !important;
   border-radius: 0px !important;
+}
+
+.login input {
+  background: transparent !important;
+}
+
+.login label {
+  background: transparent !important;
 }
 
 #dashboard .thumbnail:hover {

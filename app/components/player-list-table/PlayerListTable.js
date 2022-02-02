@@ -47,6 +47,15 @@ const InactiveAlert = (
     </ol>
   </Popover>
 );
+
+const toTitleCase = function (str) {
+  return str.replace(
+    /\w\S*/g,
+    function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
 const speaker = (
   <Popover title="Title">
     <p>This is a default Popover </p>
@@ -120,13 +129,13 @@ class PlayerListTable extends Component {
     //   playerApp =
     //     playerApp.length > 0
     //       ? playerApp[0]
-    //       : { name: "NOT ASSIGNED", _id: "0" };
+    //       : { name: "Not Assigned", _id: "0" };
 
     //   let playlist = playlists.filter(
     //     (playlist) => playlist._id == player.appId
     //   );
     //   playlist =
-    //     playlist.length > 0 ? playlist[0] : { name: "NOT ASSIGNED", _id: "0" };
+    //     playlist.length > 0 ? playlist[0] : { name: "Not Assigned", _id: "0" };
 
     //   let scheduleDetails = schedules.list.schedules.filter(
     //     (schedule) => schedule._id == player.appId
@@ -436,12 +445,12 @@ class PlayerListTable extends Component {
     let playerList = players.map(function (player) {
       let rankey = Math.floor(Math.random() * 10000000 + 100);
       let playerApp = userApps.filter((app) => app._id == player.appId);
-      playerApp = playerApp.length > 0 ? playerApp[0] : { name: "NOT ASSIGNED", _id: "0" };
+      playerApp = playerApp.length > 0 ? playerApp[0] : { name: "Not Assigned", _id: "0" };
 
       let playlist = playlists.filter(
         (playlist) => playlist._id == player.appId
       );
-      playlist = playlist.length > 0 ? playlist[0] : { name: "NOT ASSIGNED", _id: "0" };
+      playlist = playlist.length > 0 ? playlist[0] : { name: "Not Assigned", _id: "0" };
 
       let scheduleDetails = schedules.list.schedules.filter(
         (schedule) => schedule._id == player.appId
@@ -833,16 +842,16 @@ class PlayerListTable extends Component {
       //   </tbody>
       // </table>
       <Table data={playerList} rowHeight={80}>
-        <Column flexGrow={3} fixed verticalAlign="middle">
+        <Column flexGrow={1} fixed verticalAlign="middle">
           <HeaderCell>Screen Name</HeaderCell>
           <Cell>
-            {rowData => <a onClick={() => changeConsole(rowData.ChangeConsoleId, rowData.PlayerApp)}>
+            {rowData => <a style={{ color: '#337ab7 !important', fontWeight: 'regular' }} onClick={() => changeConsole(rowData.ChangeConsoleId, rowData.PlayerApp)}>
               <b>{rowData.isAdmin ? rowData.PlayerCreatedByUser : rowData.PlayerName}</b>
             </a>}
           </Cell>
         </Column>
 
-        <Column flexGrow={1} align="center" verticalAlign="middle">
+        <Column align="center" verticalAlign="middle">
           <HeaderCell>Status</HeaderCell>
           <Cell>
             {rowData => rowData.StatusAlert == null ?
@@ -856,7 +865,7 @@ class PlayerListTable extends Component {
           </Cell>
         </Column>
 
-        <Column flexGrow={1}  align="center" verticalAlign="middle">
+        <Column flexGrow={1} align="center" verticalAlign="middle">
           <HeaderCell>Live Snapshot</HeaderCell>
           <Cell>{rowData => rowData.LiveScreenShot}</Cell>
         </Column>
@@ -868,7 +877,7 @@ class PlayerListTable extends Component {
 
         <Column flexGrow={1} align="center" verticalAlign="middle">
           <HeaderCell>Content Type</HeaderCell>
-          <Cell dataKey="ContentType" />
+          <Cell>{rowData => toTitleCase(rowData.ContentType)}</Cell>
         </Column>
 
         <Column flexGrow={1} align="center" verticalAlign="middle">
@@ -879,26 +888,15 @@ class PlayerListTable extends Component {
         <Column flexGrow={1} align="center" verticalAlign="middle">
           <HeaderCell>Options</HeaderCell>
           <Cell>
-            {rowData => <Whisper
-              placement="bottomStart"
-              controlId="control-id-with-dropdown"
-              trigger="click"
-              speaker={<Popover full>
-                <Dropdown.Menu>
-                  <Dropdown.Item style={{ cursor: 'pointer' }} onClick={() => changeConsole(rowData.ChangeConsoleId, rowData.PlayerApp)}>Screen Details</Dropdown.Item>
-                  <Dropdown.Item style={{ cursor: 'pointer' }} onClick={() => (
-                    rowData._self.props.togglePreview(),
-                    rowData._self.props.toggleContentSelection(rowData.Player)
-                  )}>Set New Content</Dropdown.Item>
-                </Dropdown.Menu>
-              </Popover>}
-            >
-              <Button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-              </svg></Button>
-            </Whisper>}
+            {rowData => <span style={{ display: 'flex', flexDirection: 'column' }}>
+              <a style={{ cursor: 'pointer', color: '#337ab7 !important' }} onClick={() => changeConsole(rowData.ChangeConsoleId, rowData.PlayerApp)}>Screen Details</a>
+              <a style={{ cursor: 'pointer', color: '#337ab7 !important' }} onClick={() => (
+                rowData._self.props.togglePreview(),
+                rowData._self.props.toggleContentSelection(rowData.Player)
+              )}>Set New Content</a>
+            </span>}
           </Cell>
-        </Column>
+        </Column >
       </Table >
 
     );

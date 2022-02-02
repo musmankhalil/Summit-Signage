@@ -49,6 +49,7 @@ var ScreenChartOptions = {
     bar: {
       borderRadius: 4,
       horizontal: true,
+
     }
   },
   dataLabels: {
@@ -100,8 +101,7 @@ class UserHome extends Component {
           data: [6, 0, 3, 3]
         }],
         chart: {
-          type: 'bar',
-          height: 350
+          type: 'bar'
         },
         plotOptions: {
           bar: {
@@ -114,22 +114,33 @@ class UserHome extends Component {
         },
         xaxis: {
           categories: ['Total', 'Online', 'Offline', 'Inactive'],
+        }, fill: {
+          colors: ['#64779f8c', '#64779fcc', '#64779f']
         }
       },
       PieChartOptions: {
         series: [1, 30, 50],
-        labels: ['Library', 'Contents', 'Available'],
+        // labels: { show: false },
         chart: {
           type: 'donut',
         },
         plotOptions: {
           pie: {
-            size: 1000
+            size: 100
+          },
+          labels: {
+            show: false
           }
         },
         dataLabels: {
-          enabled: true
-        }
+          enabled: true,
+          style: {
+            // colors: ['#64779f8c', '#64779fcc', '#64779f']
+          }
+        }, fill: {
+          colors: ['#64779f8c', '#64779fcc', '#64779f']
+        },
+        legend: { show: false }
       }
     };
     this.previewApp = null;
@@ -940,19 +951,50 @@ class UserHome extends Component {
 
   renderSummaryBoard(players, user, apps) {
     console.log("colors---", this.state.colors);
-
     return (
       <div style={{ display: "inline-block", width: "100%" }}>
         <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
-          <div className="card bg-primary " style={{ height: '35vh' }}>
-            <h4>Screens</h4>
+          <div className="card bg-primary " style={{ height: '35vh', padding: '0' }}>
+            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
+              <h4>Screens</h4>
+            </div>
             <section>
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '6%' }}>
+                <div className="count-box" style={{ background: '#64779f4d' }}>
+                  <b>{this.state.data[0].data[1]}</b>
+                  <span>Online</span>
+                </div>
+                <div className="count-box" style={{ background: '#64779f8c' }}>
+                  <b>{this.state.data[0].data[2]}</b>
+                  <span>Offline</span>
+                </div>
+                <div className="count-box" style={{ background: '#64779fcc' }}>
+                  <b>{this.state.data[0].data[3]}</b>
+                  <span>Inactive</span>
+                </div>
+                <div className="count-box" style={{ background: '#64779f' }}>
+                  <b>{this.state.data[0].data[0]}</b>
+                  <span>Total</span>
+                </div>
+              </div>
 
-              <Chart
+              <div style={{ display: 'flex' }}>
+                <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#66bb6a' }}><span className="glyphicon glyphicon-ok-circle"></span> Online <span>{this.state.data[0].data[1]}</span></div>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#ffa726' }}><span className="glyphicon glyphicon-warning-sign"></span> Offline  <span>{this.state.data[0].data[2]}</span></div>
+                </div>
+                <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#f44336' }}><span className="glyphicon glyphicon-remove-circle"></span> Inactive  <span>{this.state.data[0].data[3]}</span></div>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#29b6f6' }}><span className="glyphicon glyphicon-asterisk"></span> Total  <span>{this.state.data[0].data[0]}</span></div>
+                </div>
+              </div>
+
+
+              {/* <Chart
                 options={ScreenChartOptions}
                 series={this.state.data}
                 type="bar"
-              />
+              /> */}
 
               {/* <Charts
                 data={this.state.data}
@@ -971,14 +1013,19 @@ class UserHome extends Component {
         </div>
 
         <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
-          <div className="card bg-warning" style={{ height: '35vh' }}>
-            <h4>Online Screens By Date</h4>
-            <Chart
-              options={this.state.OnlineChartOptions}
-              series={this.state.OnlineChartOptions.series}
-              categories={"1", '2', '3'}
-              type="bar"
-            />
+          <div className="card bg-primary " style={{ height: '35vh', padding: '0' }}>
+            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
+              <h4>Online Screens by Date</h4>
+            </div>
+            <section>
+
+              <Chart
+                options={this.state.OnlineChartOptions}
+                series={this.state.OnlineChartOptions.series}
+                categories={"1", '2', '3'}
+                type="bar"
+              />
+            </section>
             {/* <Charts
               data={this.state.vardata}
               labels={this.state.historyLbl}
@@ -990,8 +1037,24 @@ class UserHome extends Component {
         </div>
 
         <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
-          <div className="card bg-grn " style={{ height: '35vh' }}>
-            <h4>Storage Usage </h4>
+          <div className="card bg-primary " style={{ height: '35vh', padding: '0' }}>
+            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
+              <h4>Storage Details</h4>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '1.5rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
+                <span>Library</span>
+                <span style={{ fontSize: '2.5rem', color: '#64779f8c' }}>1GB</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
+                <span>Content</span>
+                <span style={{ fontSize: '2.5rem', color: '#64779f8c' }}>37GB</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
+                <span>Available</span>
+                <span style={{ fontSize: '2.5rem', color: '#64779f8c' }}>61GB</span>
+              </div>
+            </div>
             <Chart
               options={this.state.PieChartOptions}
               series={this.state.PieChartOptions.series}
