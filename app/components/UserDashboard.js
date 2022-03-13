@@ -20,6 +20,8 @@ import CustomerPg from "./../pages/CustomerPg";
 import ModalLocal from "./modal-local";
 import { confirmAlert } from "react-confirm-alert";
 import moment from "moment";
+import { BiEnvelope, BiUserCircle } from "react-icons/bi";
+import { FiBell, FiUser } from "react-icons/fi";
 import {
   IsBillingModule,
   PrimaryColor,
@@ -103,7 +105,7 @@ class UserDashboard extends Component {
         this.props &&
         this.props.posts &&
         this.props.posts.playersList.players.length !==
-          prevProps.posts.playersList.players.length
+        prevProps.posts.playersList.players.length
       ) {
         this.setState({
           players: this.props.posts.playersList.players,
@@ -223,9 +225,9 @@ class UserDashboard extends Component {
     let searchGrpPlayers = this.props.posts.playersList.players.filter(
       (player) =>
         player.playerName.toLowerCase().indexOf(searchScrnGrp.toLowerCase()) !==
-          -1 ||
+        -1 ||
         player.groupName.toLowerCase().indexOf(searchScrnGrp.toLowerCase()) !==
-          -1 ||
+        -1 ||
         player.address.toLowerCase().indexOf(searchScrnGrp.toLowerCase()) !== -1
     );
     this.setState({
@@ -674,7 +676,7 @@ class UserDashboard extends Component {
     }
     let drawerClss =
       this.props.user.config.settings.other_b || this.isPortrait
-        ? "side-drawer-large"
+        ? "side-drawer"
         : "side-drawer";
     let leftDrawerActiveCls = this.state.leftMenu
       ? "drawer-open"
@@ -682,27 +684,27 @@ class UserDashboard extends Component {
     let isDarkTheme =
       this.props.user.config.settings.other_b || this.isPortrait ? true : false;
     return (
-      <div className={isDarkTheme ? "dark" : ""}>
-        <span
-          className="glyphicon glyphicon-menu-hamburger"
-          onClick={() => {
-            this.toggleLeftMenu();
-          }}
-        ></span>
+      <div className={isDarkTheme ? "" : ""}>
         <div className={drawerClss + " " + leftDrawerActiveCls}>
           <span
+            className="glyphicon glyphicon-menu-hamburger"
+            onClick={() => {
+              // this.toggleLeftMenu();
+            }}
+          ></span>
+          {/* <span
             className={`toggleContainer glyphicon glyphicon-chevron-left ${
               !this.state.leftMenu ? "hide-icon-left" : ""
             }`}
             onClick={() => {
               this.toggleLeftMenu();
             }}
-          ></span>
-          <img
+          ></span> */}
+          {/* <img
             src="../assets/main_logo_white.png"
             className="main-logo_white"
             alt="My logo"
-          />
+          /> */}
 
           {this.isPortrait && (
             <div style={{ paddingBottom: "10px", color: "#a2a2a2" }}>
@@ -769,7 +771,7 @@ class UserDashboard extends Component {
             <div>
               <div
                 className={"menu-holder"}
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: "6em" }}
                 onClick={(event) => this.gotoConsole(event, "LANDING")}
               >
                 <a
@@ -783,11 +785,15 @@ class UserDashboard extends Component {
                   <span
                     className={
                       this.props.common.selectedConsole == "LANDING"
-                        ? "glyphicon glyphicon-dashboard active-icon"
-                        : "glyphicon glyphicon-dashboard"
+                        ? " active-icon"
+                        : ""
                     }
-                    style={{ left: "1px" }}
-                  ></span>
+                  // style={{ left: "1px" }}
+                  ><img
+                      src="../assets/dashboard_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <span
                     className={
                       this.props.common.selectedConsole == "LANDING"
@@ -815,11 +821,15 @@ class UserDashboard extends Component {
                   <span
                     className={
                       this.props.common.selectedConsole == "USER_SCREENS"
-                        ? "playlist_icon_active"
-                        : "playlist_icon "
+                        ? ""
+                        : " "
                     }
-                    style={{ left: "2px" }}
-                  ></span>
+                  >
+                    <img
+                      src="../assets/screens_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <span
                     className={
                       this.props.common.selectedConsole == "USER_SCREENS"
@@ -845,12 +855,16 @@ class UserDashboard extends Component {
                   <span
                     className={
                       this.props.common.selectedConsole == "PLAYLISTS"
-                        ? "glyphicon glyphicon-list  active-icon"
-                        : "glyphicon glyphicon-list"
+                        ? "active-icon"
+                        : ""
                     }
                     onClick={(event) => this.gotoConsole(event, "PLAYLISTS")}
-                    style={{ left: "0px" }}
-                  ></span>
+                  >
+                    <img
+                      src="../assets/playlist_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <div
                     className={
                       this.props.common.selectedConsole == "PLAYLISTS"
@@ -876,11 +890,15 @@ class UserDashboard extends Component {
                   <span
                     className={
                       this.props.common.selectedConsole == "TEMPLATE_LIST"
-                        ? "template-icon-active"
-                        : "template-icon"
+                        ? ""
+                        : ""
                     }
-                    style={{ left: "2px" }}
-                  ></span>
+                  >
+                    <img
+                      src="../assets/templates_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <div
                     className={
                       this.props.common.selectedConsole == "TEMPLATE_LIST"
@@ -938,11 +956,15 @@ class UserDashboard extends Component {
                   <span
                     className={
                       this.props.common.selectedConsole == "SCHEDULES"
-                        ? "glyphicon glyphicon-calendar active-icon"
-                        : "glyphicon glyphicon-calendar"
+                        ? "active-icon"
+                        : ""
                     }
-                    style={{ left: "2px" }}
-                  ></span>
+                  >
+                    <img
+                      src="../assets/schedules_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <div
                     className={
                       this.props.common.selectedConsole == "SCHEDULES"
@@ -971,10 +993,15 @@ class UserDashboard extends Component {
                       style={{ left: "1px" }}
                       className={
                         this.props.common.selectedConsole == "GALLERY"
-                          ? "glyphicon glyphicon-picture active-icon"
-                          : "glyphicon glyphicon-picture"
+                          ? "active-icon"
+                          : ""
                       }
-                    ></span>
+                    >
+                      <img
+                        src="../assets/libraries_icon.jpg"
+                        style={{ width: '50%' }}
+                      />
+                    </span>
                     <div
                       className={
                         this.props.common.selectedConsole == "GALLERY"
@@ -1037,10 +1064,15 @@ class UserDashboard extends Component {
                       style={{ left: "1px" }}
                       className={
                         this.props.common.selectedConsole == "GALLERY"
-                          ? "glyphicon glyphicon-picture active-icon"
-                          : "glyphicon glyphicon-picture"
+                          ? " active-icon"
+                          : ""
                       }
-                    ></span>
+                    >
+                      <img
+                        src="../assets/libraries_icon.jpg"
+                        style={{ width: '50%' }}
+                      />
+                    </span>
                     <div
                       className={
                         this.props.common.selectedConsole == "GALLERY"
@@ -1068,10 +1100,15 @@ class UserDashboard extends Component {
                     data-tip={"REPORTS"}
                     className={
                       this.props.common.selectedConsole == "REPORTS"
-                        ? "report_icon_active active-icon"
-                        : "report_icon"
+                        ? " active-icon"
+                        : ""
                     }
-                  ></span>
+                  >
+                    <img
+                      src="../assets/reports_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <div
                     className={
                       this.props.common.selectedConsole == "REPORTS"
@@ -1100,10 +1137,15 @@ class UserDashboard extends Component {
                         data-tip={"MEMBERS"}
                         className={
                           this.props.common.selectedConsole == "IAM-USERS"
-                            ? "glyphicon glyphicon-user active-icon"
-                            : "glyphicon glyphicon-user"
+                            ? " active-icon"
+                            : ""
                         }
-                      ></span>
+                      >
+                        <img
+                          src="../assets/members_icon.jpg"
+                          style={{ width: '50%' }}
+                        />
+                      </span>
                       <div
                         className={
                           this.props.common.selectedConsole == "IAM-USERS"
@@ -1124,7 +1166,12 @@ class UserDashboard extends Component {
                     this.logout(e);
                   }}
                 >
-                  <span className="glyphicon glyphicon-log-out"></span>
+                  <span className="">
+                    <img
+                      src="../assets/logout_icon.jpg"
+                      style={{ width: '50%' }}
+                    />
+                  </span>
                   <div className="left-menu-title item-last">Log Out</div>
                 </a>
               </div>
@@ -1169,8 +1216,8 @@ class UserDashboard extends Component {
             this.isPortrait
               ? "container no-menu"
               : this.state.leftMenu
-              ? "container "
-              : "container no-menu"
+                ? "container "
+                : "container no-menu"
           }
         >
           {selectedConsole}
@@ -1205,10 +1252,11 @@ class UserDashboard extends Component {
             }}
           >
             <span
-              style={{ marginRight: "20px" }}
-              className="glyphicon glyphicon-bullhorn announcement-icon"
+              style={{ marginRight: "20px", paddingTop: '0.2em', fontSize: '1.7em', cursor: 'pointer' }}
+              className=""
               onClick={(e) => this.gotoAnnounce()}
             >
+              <FiBell />
               {!this.state.isViewed && (
                 <span
                   style={{ backgroundColor: PrimaryColor }}
@@ -1216,7 +1264,10 @@ class UserDashboard extends Component {
                 ></span>
               )}
             </span>
-            <span className="menu-arrow glyphicon glyphicon-user">
+            <span className="menu-arrow"
+              style={{ marginRight: "20px", paddingTop: '0.2em', fontSize: '1.7em', cursor: 'pointer' }}
+            >
+              <FiUser />
               <Dropdown autoOpen={true} arrowClassName="" className={""}>
                 <Dropdown.Toggle />
                 <Dropdown.MenuWrapper>

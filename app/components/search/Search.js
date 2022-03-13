@@ -16,7 +16,16 @@ class Search extends Component {
     return (
       <span
         className={this.props.isOnlysearch ? "pop-search" : "search-top-input"}
+        style={{ backgroundColor: "#eff3f4", borderRadius: '50px' }}
       >
+        <input
+          type="search"
+          className="search search-input"
+          placeholder="search..."
+          onChange={(e) => this.props.onSearchChange(e)}
+          style={{ backgroundColor: "#eff3f4", borderRadius: '50px' }}
+        />
+
         <span className="glyphicon glyphicon-search"></span>
         {!this.props.isOnlysearch && (
           <span className="search-drop">
@@ -68,12 +77,7 @@ class Search extends Component {
             </Dropdown>
           </span>
         )}
-        <input
-          type="search"
-          className="search search-input"
-          placeholder="search..."
-          onChange={(e) => this.props.onSearchChange(e)}
-        />
+
       </span>
     );
   }

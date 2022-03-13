@@ -75,7 +75,7 @@ class TemplatesList extends Component {
     } = this.props;
     let isDemoUser =
       this.props.user.user &&
-      this.props.user.user.status.toUpperCase() == "DEMO"
+        this.props.user.user.status.toUpperCase() == "DEMO"
         ? true
         : false;
 
@@ -197,7 +197,7 @@ class TemplatesList extends Component {
       childrenElement: () => <div></div>,
       confirmLabel: "",
       cancelLabel: "Ok, Got It!",
-      onConfirm: () => {},
+      onConfirm: () => { },
       onCancel: () => {
         this.isInformed = false;
       },
@@ -496,7 +496,7 @@ class TemplatesList extends Component {
         className="col-xs-12 col-sm-6 col-md-4 col-lg-4 list-group-item"
         key={app._id}
       >
-        <div className="thumbnail apps">
+        <div className="thumbnail apps" style={{ borderRadius: '5px' }}>
           <span className={isAccessAllowed ? "" : "locked"}></span>
           <img
             src={appThumbnail}
@@ -505,14 +505,14 @@ class TemplatesList extends Component {
               this.isSelectView
                 ? (evt) => this.setSelection(app)
                 : () => {
-                    this.gotoEditApp(
-                      app._id,
-                      this.props.selectedPlayerId,
-                      app.domain,
-                      app.isTemplate,
-                      app
-                    );
-                  }
+                  this.gotoEditApp(
+                    app._id,
+                    this.props.selectedPlayerId,
+                    app.domain,
+                    app.isTemplate,
+                    app
+                  );
+                }
             }
           />
           {!this.isSelectView ? (
@@ -540,7 +540,7 @@ class TemplatesList extends Component {
                         <span className="glyphicon glyphicon-pencil"></span>
                         <span>
                           {app.domain.indexOf("customs") !== -1 &&
-                          app.isTemplate
+                            app.isTemplate
                             ? "NEW DESIGN"
                             : "UPDATE TEMPLATE"}
                         </span>
@@ -643,7 +643,7 @@ class TemplatesList extends Component {
             ></span>
           )}
 
-          <div className="caption center-btn">
+          <div className="caption center-btn" style={{ borderRadius: '5px' }}>
             <label>
               <span
                 className={app.status == "DRAFT" ? "draft-icon" : ""}
@@ -739,7 +739,7 @@ class TemplatesList extends Component {
     this.props.changeConsole("LANDING");
   }
 
-  handleSelect(index, last) {}
+  handleSelect(index, last) { }
 
   getModalClass() {
     if (this.previewApp || this.state.preview || this.state.previewOriginal) {
@@ -791,10 +791,18 @@ class TemplatesList extends Component {
       <div>
         <div className="title-container">
           {this.isSelectView ? (
-            <h2 className="header-title">Select Template</h2>
+            // <h2 className="header-title">Select Template</h2>
+            <img
+              src="../assets/main_logo.png"
+              style={{ width: '12em', position: 'relative', top: '-5.3em', left: '-2em' }}
+            />
           ) : (
-            <div>
-              <h2 className="header-title">Templates</h2>
+            <div style={{ height: '0' }}>
+              {/* <h2 className="header-title">Templates</h2> */}
+              <img
+                src="../assets/main_logo.png"
+                style={{ width: '12em', position: 'relative', top: '-5.3em', left: '-2em' }}
+              />
               <Search
                 changeConsole={this.props.changeConsole}
                 onSearchChange={this.onSearchChange}

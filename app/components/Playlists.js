@@ -208,7 +208,7 @@ class Playlists extends Component {
       >
         <div className="thumbnail apps">
           <img
-            style={{ width: "100%" }}
+            style={{ width: "100%", borderRadius: '5px' }}
             src={appThumbnail}
             alt="242x160"
             onClick={
@@ -309,7 +309,7 @@ class Playlists extends Component {
             ></span>
           )}
 
-          <div className="caption center-btn">
+          <div className="caption center-btn" style={{ borderRadius: '5px' }}>
             <label>
               {false && (
                 <span
@@ -461,12 +461,12 @@ class Playlists extends Component {
   renderCreateNewDD() {
     return (
       <button
-        style={{
-          padding: "0px",
-          wordSpacing: "-2px",
-          textIndent: "2px",
-          color: this.props.user.config.settings.color_primary,
-        }}
+        // style={{
+        //   padding: "0px",
+        //   wordSpacing: "-2px",
+        //   textIndent: "2px",
+        //   color: this.props.user.config.settings.color_primary,
+        // }}
         className="btn-primary-link"
         onClick={() => this.togglePlaylistEditor()}
       >
@@ -484,16 +484,23 @@ class Playlists extends Component {
     return (
       <div>
         <div className="title-container">
-          {this.isSelectView ? (
+          {/* {this.isSelectView ? (
             <h2 className="header-title">Select Playlist</h2>
           ) : (
             <h2 className="header-title">Playlists</h2>
-          )}
+          )} */}
+          <img
+            src="../assets/main_logo.png"
+            style={{ width: '12em', position: 'relative', top: '-5.3em', left: '-2em' }}
+          />
           <Search
             changeConsole={this.props.changeConsole}
             onSearchChange={this.onSearchChange}
           />
 
+
+        </div>
+        <div className="screens-padding">
           <div className="search-bar">
             {!user.admin && playlistsArr.length > 0 ? (
               this.renderCreateNewDD()
@@ -501,8 +508,6 @@ class Playlists extends Component {
               <span></span>
             )}
           </div>
-        </div>
-        <div className="screens-padding">
           {playlistsArr.length > 0 ? (
             <ul className="panel-body">{this.renderPlaylists(playlistsArr)}</ul>
           ) : (

@@ -130,22 +130,32 @@ class SignInForm extends Component {
     var chckInput = { value: false };
     let err = user && user.error;
     return (
-      <div className="container-fluid" style={{ background: '#63779f' }}>
-        <div className="row">
+      <div className="container-fluid" style={{ background: '#262f3e' }}>
+        <div className="row" style={{ display: "flex", alignItems: "center" }}>
           <div className="col-md-4 col-lg-4">
-            <div className="text-left">
+            <div className="text-left" style={{
+              backgroundColor: "white",
+              borderRadius: "25px 0 0 25px",
+              height: "95vh",
+              width: "30vw"
+            }}>
               {/* <img
                 src="../assets/main_logo.png"
                 className="login-logo"
                 alt="My logo"
               /> */}
               <div className="left-col-pad" style={{ paddingRight: '4rem', paddingLeft: '4rem' }}>
-                <div style={{ textAlign: 'center' }}>
+                <div style={{ textAlign: 'center', height: "35vh" }}>
                   <img
                     src="../assets/main_logo.png"
                     className="login-logo"
                     alt="My logo"
-                    style={{ width: '75%' }}
+                    style={{
+                      width: "100%",
+                      position: "relative",
+                      top: "-5em",
+                      height: "47vh"
+                    }}
                   />
                   {/* <h3 className="text-left login-text">
                     Welcome, Please sign in!
@@ -174,40 +184,47 @@ class SignInForm extends Component {
                       />
 
                       <div className="save-pass" style={{ textAlign: "left" }}>
-                        <label
-                          style={{ color: "#adaaaa", marginRight: "10px" }}
-                        >
-                          {" "}
-                          {"Remember Me"}
-                        </label>
                         <input
                           type="checkbox"
                           name="savePass"
                           onChange={this.savePassChange}
                           id="save-pass"
                         />
+                        <label
+                          style={{ color: "#4d4d4d", marginLeft: "10px" }}
+                        >
+                          {" "}
+                          {"Remember Me"}
+                        </label>
                       </div>
 
-                      <div style={{ textAlign: "right" }}>
+                      <div style={{ textAlign: "center" }}>
                         <button
                           type="submit"
                           className="btn btn-primary btn-login"
                           disabled={submitting}
+                          style={{
+                            background: "rgb(38, 47, 62)",
+                            width: "100%",
+                            borderRadius: "10em"
+                          }}
                         >
                           Log In
                         </button>
                       </div>
                     </form>
 
-                    {IsPublicSignup && (
-                      <div style={{ padding: "5px 15px", wordSpacing: "-2px" }}>
+                    {/* {IsPublicSignup && ( */}
+                    {true && (
+                      <div style={{
+                        display: "flex", flexDirection: "column",
+                        alignItems: "center"
+                      }}>
                         {" "}
                         <button
                           className="btn-primary-link"
                           style={{
-                            color: PrimaryColor,
-                            float: "left",
-                            marginLeft: "5px",
+                            color: "#22D3EE", textDecoration: "underline", fontSize: "0.85em"
                           }}
                           onClick={() =>
                             this.props.changeConsole("FORGOT_PASSWORD")
@@ -216,15 +233,15 @@ class SignInForm extends Component {
                           Forgot Password?
                         </button>
                         <span style={{ float: "right" }}>
-                          <label style={{ color: "#adaaaa" }}>
-                            New user? please,
+                          <label style={{ color: "#4d4d4d", fontSize: "0.85em" }}>
+                            Don't have an account?
                           </label>
                           <button
                             className="btn-primary-link"
-                            style={{ color: PrimaryColor }}
+                            style={{ color: "#22D3EE", textDecoration: "underline", fontSize: "0.85em" }}
                             onClick={() => this.gotoSignup()}
                           >
-                            Sign Up
+                            Register
                           </button>
                         </span>
                       </div>
@@ -283,7 +300,7 @@ class SignInForm extends Component {
           <div className="col-md-8 col-lg-8 login-section2 left-col-background-hide">
             <div>
               <h1 className="text-left login-text">
-                Welcome, Please sign in!
+                Welcome <br />to the <br /> SUMMITSIGNAGE!
               </h1>
               <h4 className="text-left login-text" style={{ fontColor: '#3c3c3c', fontSize: '25px' }}>
                 A powerful and intuitive digital signage solution.

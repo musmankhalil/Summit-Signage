@@ -17,6 +17,7 @@ import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 // import 'rsuite-table/lib/less/index.less'; // or 'rsuite-table/dist/css/rsuite-table.css'
 import 'rsuite-table/dist/css/rsuite-table.css';
 import 'rsuite/dist/rsuite.min.css';
+import { BsInfoLg, BsFillPencilFill } from "react-icons/bs";
 import {
   Popover,
   Whisper,
@@ -841,7 +842,7 @@ class PlayerListTable extends Component {
       //     )}
       //   </tbody>
       // </table>
-      <Table data={playerList} rowHeight={80}>
+      <Table autoHeight={this.props.autoHeight} data={playerList} rowHeight={80} style={{ borderRadius: '10px', boxShadow: '0 7px 21px 0 rgb(53 61 73 / 5%)' }}>
         <Column flexGrow={1} fixed verticalAlign="middle">
           <HeaderCell>Screen Name</HeaderCell>
           <Cell>
@@ -888,12 +889,13 @@ class PlayerListTable extends Component {
         <Column flexGrow={1} align="center" verticalAlign="middle">
           <HeaderCell>Options</HeaderCell>
           <Cell>
-            {rowData => <span style={{ display: 'flex', flexDirection: 'column' }}>
-              <a style={{ cursor: 'pointer', color: '#337ab7 !important' }} onClick={() => changeConsole(rowData.ChangeConsoleId, rowData.PlayerApp)}>Screen Details</a>
-              <a style={{ cursor: 'pointer', color: '#337ab7 !important' }} onClick={() => (
+            {rowData => <span style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'space-around', padding: '1em', fontSize: '1.3em' }}>
+              <a className="table-a" style={{ cursor: 'pointer', color: '#808080 !important' }} onClick={() => changeConsole(rowData.ChangeConsoleId, rowData.PlayerApp)}><BsInfoLg style={{ color: '#808080 !important' }} /></a>
+              {/* <span>|</span> */}
+              <a className="table-a" style={{ cursor: 'pointer', color: '#808080 !important' }} onClick={() => (
                 rowData._self.props.togglePreview(),
                 rowData._self.props.toggleContentSelection(rowData.Player)
-              )}>Set New Content</a>
+              )}><BsFillPencilFill style={{ color: '#808080 !important' }} /></a>
             </span>}
           </Cell>
         </Column >

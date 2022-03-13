@@ -131,7 +131,7 @@ class PlayersList extends Component {
     if (
       this.state.isConfirmPublish &&
       JSON.stringify(prevProps.playlists.newPlaylist.details) !==
-        JSON.stringify(this.props.playlists.newPlaylist.details)
+      JSON.stringify(this.props.playlists.newPlaylist.details)
     ) {
       this.confirmPublish();
     }
@@ -142,7 +142,7 @@ class PlayersList extends Component {
       this.state.isPlaylistEditor &&
       !this.state.modalOpen &&
       JSON.stringify(prevProps.playlists.playList.items) !==
-        JSON.stringify(this.props.playlists.playList.items)
+      JSON.stringify(this.props.playlists.playList.items)
     ) {
       let editPlayListDetails = Object.assign(
         {},
@@ -202,7 +202,7 @@ class PlayersList extends Component {
     if (
       this.state.isScreenPlaylistStatus &&
       JSON.stringify(prevProps.playlists.playList.items) !==
-        JSON.stringify(this.props.playlists.playList.items)
+      JSON.stringify(this.props.playlists.playList.items)
     ) {
       console.log("launching screen items details");
       let itemsArr = this.props.playlists.playList.items.map(
@@ -214,7 +214,7 @@ class PlayersList extends Component {
     if (
       this.state.isScreenPlaylistStatus &&
       JSON.stringify(prevProps.playerItemsStatus.items) !==
-        JSON.stringify(this.props.playerItemsStatus.items) &&
+      JSON.stringify(this.props.playerItemsStatus.items) &&
       !this.state.modalOpen
     ) {
       this.setState({
@@ -652,19 +652,25 @@ class PlayersList extends Component {
     return (
       <div>
         <div className="title-container">
-          <h2 className="header-title">Screens</h2>
+          <img
+            src="../assets/main_logo.png"
+            style={{ width: '12em', position: 'relative', top: '-5.3em', left: '-2em' }}
+          />
           <Search
             changeConsole={this.props.changeConsole}
             onSearchChange={this.onSearchChange}
           />
+
+        </div>
+        <Loading isLoading={loading} />
+        <Error error={error} />
+
+        <div className="screens-padding">
           {!user.admin && (
             <div className="search-bar">
               <button
                 style={{
-                  padding: "0px",
-                  wordSpacing: "-2px",
-                  textIndent: "2px",
-                  color: this.props.user.config.settings.color_primary,
+
                 }}
                 className="btn-primary-link"
                 onClick={() => (this.togglePreview(), this.toggleNewPlayer())}
@@ -690,11 +696,6 @@ class PlayersList extends Component {
               )}
             </div>
           )}
-        </div>
-        <Loading isLoading={loading} />
-        <Error error={error} />
-
-        <div className="screens-padding">
           <div style={{ textAlign: "right" }}>
             <span className="menu-arrow glyphicon optionbtn">
               <Dropdown autoOpen={true} className={"player-drop"}>
@@ -759,6 +760,7 @@ class PlayersList extends Component {
               gotoEditApp={this.gotoEditApp}
               toggleContentSelection={this.toggleContentSelection}
               schedules={schedules}
+              autoHeight={true}
             />
           )}
         </div>

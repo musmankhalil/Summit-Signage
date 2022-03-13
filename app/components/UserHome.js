@@ -100,22 +100,20 @@ class UserHome extends Component {
         series: [{
           data: [6, 0, 3, 3]
         }],
-        chart: {
-          type: 'bar'
+        stroke: {
+          curve: 'smooth',
         },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: false,
-          }
+        chart: {
+          type: 'area'
+        },
+        legend: {
+          show: false
         },
         dataLabels: {
-          enabled: true
+          enabled: false
         },
-        xaxis: {
-          categories: ['Total', 'Online', 'Offline', 'Inactive'],
-        }, fill: {
-          colors: ['#64779f8c', '#64779fcc', '#64779f']
+        sparkline: {
+          enabled: false
         }
       },
       PieChartOptions: {
@@ -133,12 +131,12 @@ class UserHome extends Component {
           }
         },
         dataLabels: {
-          enabled: true,
+          enabled: false,
           style: {
-            // colors: ['#64779f8c', '#64779fcc', '#64779f']
+            // colors: ['#000000', fontWeight: 'bold', '#64779fcc', '#64779f']
           }
         }, fill: {
-          colors: ['#64779f8c', '#64779fcc', '#64779f']
+          colors: ['#989898', '#666666', '#2e3339']
         },
         legend: { show: false }
       }
@@ -817,14 +815,8 @@ class UserHome extends Component {
           data: historyFinalData
         }],
         chart: {
-          type: 'bar',
+          type: 'area',
           height: 350
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: false,
-          }
         },
         dataLabels: {
           enabled: false
@@ -952,19 +944,53 @@ class UserHome extends Component {
   renderSummaryBoard(players, user, apps) {
     console.log("colors---", this.state.colors);
     return (
-      <div style={{ display: "inline-block", width: "100%" }}>
-        <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
-          <div className="card bg-primary " style={{ height: '35vh', padding: '0' }}>
-            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
-              <h4>Screens</h4>
+      <div>
+        <div></div>
+        <div style={{ display: "inline-block", width: "100%", height: '250px' }}>
+          <Chart
+            options={this.state.OnlineChartOptions}
+            series={this.state.OnlineChartOptions.series}
+            categories={"1", '2', '3'}
+            type="area"
+            height="100%"
+          />
+        </div>
+        <div style={{ display: "inline-block", width: "100%" }}>
+          <div className="col-sm-12 col-md-3 col-lg-3 summary-wdgt">
+            <div className="card bg-primary " style={{ color: '#000', height: '35vh', padding: '0', borderBottom: 'solid green 10px', borderRadius: '10px' }}>
+              <div style={{ paddingLeft: '1.5rem' }}>
+                <h4 style={{ color: '#000000 !important' }}>Online</h4>
+                <h2 style={{ color: '#000000 !important' }}>{this.state.data[0].data[1]}</h2>
+              </div>
+              <div style={{ paddingTop: '5em', paddingLeft: '1.5em' }}>Out of <span style={{ fontWeight: 'bold', fontSize: '1.3em' }}>{this.state.data[0].data[0]}</span></div>
             </div>
-            <section>
+          </div>
+          <div className="col-sm-12 col-md-3 col-lg-3 summary-wdgt">
+            <div className="card bg-primary " style={{ color: '#000', height: '35vh', padding: '0', borderBottom: 'solid orange 10px', borderRadius: '10px' }}>
+              <div style={{ paddingLeft: '1.5rem' }}>
+                <h4 style={{ color: '#000000 !important' }}>Offline</h4>
+                <h2 style={{ color: '#000000 !important' }}>{this.state.data[0].data[2]}</h2>
+              </div>
+              <div style={{ paddingTop: '5em', paddingLeft: '1.5em' }}>Out of <span style={{ fontWeight: 'bold', fontSize: '1.3em' }}>{this.state.data[0].data[0]}</span></div>
+            </div>
+          </div>
+          <div className="col-sm-12 col-md-3 col-lg-3 summary-wdgt">
+            <div className="card bg-primary " style={{ color: '#000000 !important', height: '35vh', padding: '0', borderBottom: 'solid grey 10px', borderRadius: '10px' }}>
+              <div style={{ paddingLeft: '1.5rem' }}>
+                <h4 style={{ color: '#000000 !important' }}>Inactive</h4>
+                <h2 style={{ color: '#000000 !important' }}>{this.state.data[0].data[3]}</h2>
+              </div>
+              <div style={{ paddingTop: '5em', paddingLeft: '1.5em' }}>Out of <span style={{ fontWeight: 'bold', fontSize: '1.3em' }}>{this.state.data[0].data[0]}</span></div>
+            </div>
+          </div>
+          {/* <section>
+
               <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '6%' }}>
                 <div className="count-box" style={{ background: '#64779f4d' }}>
                   <b>{this.state.data[0].data[1]}</b>
                   <span>Online</span>
                 </div>
-                <div className="count-box" style={{ background: '#64779f8c' }}>
+                <div className="count-box" style={{ background: '#000000', fontWeight: 'bold' }}>
                   <b>{this.state.data[0].data[2]}</b>
                   <span>Offline</span>
                 </div>
@@ -973,7 +999,7 @@ class UserHome extends Component {
                   <span>Inactive</span>
                 </div>
                 <div className="count-box" style={{ background: '#64779f' }}>
-                  <b>{this.state.data[0].data[0]}</b>
+                  <b<span>>{this.state.data[0].data[0]}</span></b>
                   <span>Total</span>
                 </div>
               </div>
@@ -985,7 +1011,48 @@ class UserHome extends Component {
                 </div>
                 <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#f44336' }}><span className="glyphicon glyphicon-remove-circle"></span> Inactive  <span>{this.state.data[0].data[3]}</span></div>
-                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#29b6f6' }}><span className="glyphicon glyphicon-asterisk"></span> Total  <span>{this.state.data[0].data[0]}</span></div>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#29b6f6' }}><span className="glyphicon glyphicon-asterisk"></span> Total  <span<span>>{this.state.data[0].data[0]}</span></span></div>
+                </div>
+              </div>
+
+
+            </section> */}
+          {/* </div>
+        </div> */}
+
+          {/* <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
+          <div className="card bg-primary " style={{ height: 'color: '#000', 35vh', padding: '0' }}>
+            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
+              <h4>Screens</h4>
+            </div>
+            <section>
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '6%' }}>
+                <div className="count-box" style={{ background: '#64779f4d' }}>
+                  <b>{this.state.data[0].data[1]}</b>
+                  <span>Online</span>
+                </div>
+                <div className="count-box" style={{ background: '#000000', fontWeight: 'bold' }}>
+                  <b>{this.state.data[0].data[2]}</b>
+                  <span>Offline</span>
+                </div>
+                <div className="count-box" style={{ background: '#64779fcc' }}>
+                  <b>{this.state.data[0].data[3]}</b>
+                  <span>Inactive</span>
+                </div>
+                <div className="count-box" style={{ background: '#64779f' }}>
+                  <b<span>>{this.state.data[0].data[0]}</span></b>
+                  <span>Total</span>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex' }}>
+                <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#66bb6a' }}><span className="glyphicon glyphicon-ok-circle"></span> Online <span>{this.state.data[0].data[1]}</span></div>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#ffa726' }}><span className="glyphicon glyphicon-warning-sign"></span> Offline  <span>{this.state.data[0].data[2]}</span></div>
+                </div>
+                <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#f44336' }}><span className="glyphicon glyphicon-remove-circle"></span> Inactive  <span>{this.state.data[0].data[3]}</span></div>
+                  <div style={{ display: 'flex', alignContent: 'space-between', justifyContent: 'space-between', paddingRight: '2rem', paddingLeft: '2rem', paddingTop: '2.5rem', fontSize: '1.5rem', fontWeight: 'bold', color: '#29b6f6' }}><span className="glyphicon glyphicon-asterisk"></span> Total  <span<span>>{this.state.data[0].data[0]}</span></span></div>
                 </div>
               </div>
 
@@ -996,71 +1063,77 @@ class UserHome extends Component {
                 type="bar"
               /> */}
 
-              {/* <Charts
+          {/* <Charts
                 data={this.state.data}
                 labels={this.state.screensChartLbl}
                 colors={this.state.colors}
                 horizontal={true}
               /> */}
 
-              {/* <Legend
+          {/* <Legend
                 key={this.state.screensChartLbl}
                 labels={this.state.screensChartLbl}
                 colors={this.state.colors}
               /> */}
-            </section>
+          {/* </section>
           </div>
-        </div>
+        </div>  */}
 
-        <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
-          <div className="card bg-primary " style={{ height: '35vh', padding: '0' }}>
-            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
-              <h4>Online Screens by Date</h4>
-            </div>
-            <section>
+          {/* <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
+            <div className="card bg-primary " style={{ height: 'color: '#000', 35vh', padding: '0' }}>
+              <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
+                <h4>Online Screens by Date</h4>
+              </div>
+              <section> */}
 
-              <Chart
+          {/* <Chart
                 options={this.state.OnlineChartOptions}
                 series={this.state.OnlineChartOptions.series}
                 categories={"1", '2', '3'}
-                type="bar"
-              />
-            </section>
-            {/* <Charts
+                type="area"
+              /> */}
+          {/* </section> */}
+          {/* <Charts
               data={this.state.vardata}
               labels={this.state.historyLbl}
               colors={this.state.verColors}
               height={90}
             />
             <Legend labels={this.state.historyLbl} colors={this.state.colors} /> */}
-          </div>
-        </div>
+          {/* </div>
+          </div> */}
 
-        <div className="col-sm-12 col-md-4 col-lg-4 summary-wdgt">
-          <div className="card bg-primary " style={{ height: '35vh', padding: '0' }}>
-            <div style={{ backgroundColor: '#e9e9e9', paddingLeft: '1.5rem' }}>
-              <h4>Storage Details</h4>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '1.5rem' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
-                <span>Library</span>
-                <span style={{ fontSize: '2.5rem', color: '#64779f8c' }}>1GB</span>
+          <div className="col-sm-12 col-md-3 col-lg-3 summary-wdgt">
+            <div className="card bg-primary " style={{ color: '#000', height: '60vh', padding: '0', borderRadius: '10px' }}>
+              <div style={{ paddingLeft: '1.5rem' }}>
+                <h4>Storage Details</h4>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
-                <span>Content</span>
-                <span style={{ fontSize: '2.5rem', color: '#64779f8c' }}>37GB</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'space-around' }}>
+                <Chart
+                  options={this.state.PieChartOptions}
+                  series={this.state.PieChartOptions.series}
+                  type="donut"
+                />
+                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-around' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem', alignItems: 'center' }}>
+                    <span>Library</span>
+                    <span style={{ fontSize: '2.5rem', color: '#000000', fontWeight: 'bold' }}>1GB</span>
+                    <span>0.61%</span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem', alignItems: 'center' }}>
+                    <span>Content</span>
+                    <span style={{ fontSize: '2.5rem', color: '#000000', fontWeight: 'bold' }}>37GB</span>
+                    <span>22.57%</span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem', alignItems: 'center' }}>
+                    <span>Available</span>
+                    <span style={{ fontSize: '2.5rem', color: '#000000', fontWeight: 'bold' }}>61GB</span>
+                    <span>76.82% Free</span>
+                  </div>
+                </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
-                <span>Available</span>
-                <span style={{ fontSize: '2.5rem', color: '#64779f8c' }}>61GB</span>
-              </div>
-            </div>
-            <Chart
-              options={this.state.PieChartOptions}
-              series={this.state.PieChartOptions.series}
-              type="donut"
-            />
-            {/* <ComplexDonut
+
+              {/* <ComplexDonut
               size={120}
               radius={40}
               segments={[
@@ -1090,9 +1163,9 @@ class UserHome extends Component {
                 this.state.colors[1],
               ]}
             /> */}
-          </div>{" "}
-        </div>
-      </div>
+            </div>{" "}
+          </div>
+        </div></div>
     );
   }
 
@@ -1333,7 +1406,10 @@ class UserHome extends Component {
       <div>
         {players.length > 0 && (
           <div className="title-container">
-            <h2 className="header-title">Dashboard</h2>
+            <img
+              src="../assets/main_logo.png"
+              style={{ width: '12em', position: 'relative', top: '-5.3em', left: '-2em' }}
+            />
             <Search
               changeConsole={this.props.changeConsole}
               onSearchChange={this.onSearchChange}
@@ -1348,7 +1424,7 @@ class UserHome extends Component {
           <div className="screens-padding">
             {this.renderSummaryBoard(players, user)}
 
-            <div className={"section-holder"}>
+            <div className={"section-holder"} style={{ top: "-11em", position: "relative" }}>
               <h4>{this.renderScreenStatusDD()}</h4>
 
               <div
@@ -1356,7 +1432,7 @@ class UserHome extends Component {
                 //   display: "inline-block",
                 //   width: "100%",
                 // }}
-                className={" col-sm-12 col-md-12 col-lg-12"}
+                className={" col-sm-12 col-md-9 col-lg-9"}
               >
                 <PlayerListTableView
                   players={playersListDashboard}
@@ -1371,11 +1447,12 @@ class UserHome extends Component {
                   gotoEditApp={this.gotoEditApp}
                   settings={this.props.user.config.settings}
                   toggleContentSelection={this.toggleContentSelection}
+                  autoHeight={false}
                 />
               </div>
             </div>
 
-            <div className={"section-holder"}>
+            <div className={"section-holder"} style={{ top: "-10em", position: "relative" }}>
               <h4>{"Recent Content"}</h4>
               {
                 <div
